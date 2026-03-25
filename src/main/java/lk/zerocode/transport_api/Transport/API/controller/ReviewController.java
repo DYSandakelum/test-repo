@@ -5,10 +5,7 @@ import lk.zerocode.transport_api.Transport.API.controller.response.ReviewRespons
 import lk.zerocode.transport_api.Transport.API.model.Review;
 import lk.zerocode.transport_api.Transport.API.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +30,56 @@ public class ReviewController {
     public List<ReviewResponse> getAllReviews(){
 
         List<Review> reviewList = reviewService.getAllReviews();
-        List<ReviewResponse> reviewResponseList = new ArrayList<ReviewResponse>();
+        List<ReviewResponse> reviewResponseList = new ArrayList<>();
 
         for (Review review : reviewList) {
-            ReviewResponse reviewResponse = new ReviewResponse();
-            reviewResponse.setReviewId(review.getReviewId());
-            reviewResponse.setReviewMessage(review.getReviewMessage());
-            reviewResponseList.add(reviewResponse);
+            ReviewResponse response = new ReviewResponse();
+            response.setReviewId(review.getReviewId());
+            response.setDriverName(review.getDriverName());
+            response.setReviewMessage(review.getReviewMessage());
+            reviewResponseList.add(response);
         }
 
         return reviewResponseList;
 
     }
 
-}
+    @GetMapping("/reviews/{review-id}")
+     public ReviewResponse getById(@PathVariable ("review-id") long reviewId){
+
+        Review review = reviewService.findById(reviewId);
+        
+        if(review == null){
+            return null;
+        }
+
+        ReviewResponse response = new ReviewResponse();
+        response.setReviewId(review.getReviewId());
+        response.setDriverName(review.getDriverName());
+        response.setReviewMessage(review.getReviewMessage());
+        return response;
+
+    }
+
+    @PutMapping("/reviews/{review-id}")
+    public ReviewResponse updateReview(@PathVariable("review-id") long reviewId,
+                             @RequestBody ReviewRequest reviewRequest){
+
+        Review review = reviewService.updateById(reviewId, reviewRequest);
+
+        if(review == null){
+            return null;
+        }
+
+        ReviewResponse response = new ReviewResponse();
+        response.setReviewId(review.getReviewId());
+        response.setDriverName(review.getDriverName());
+        response.setReviewMessage(review.getReviewMessage());
+
+        return response;
+
+
+    }
+    }
+
+
