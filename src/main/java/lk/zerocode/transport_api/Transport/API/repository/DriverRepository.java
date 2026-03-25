@@ -1,4 +1,50 @@
 package lk.zerocode.transport_api.Transport.API.repository;
 
+import lk.zerocode.transport_api.Transport.API.controller.request.DriverRequest;
+import lk.zerocode.transport_api.Transport.API.model.Driver;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
 public class DriverRepository {
-}
+
+        List<Driver> driverList = new ArrayList<>();
+
+        public void createDriver(Driver driver){
+            driverList.add(driver);
+        }
+
+        public List<Driver> findAllDrivers() {
+            return driverList;
+        }
+
+        public Driver findDriverById(Long driverId) {
+            for (Driver driver : driverList) {
+
+                if (driver.getDriveId() == driverId) {
+                    return driver;
+                }
+            }
+            return null;
+        }
+
+    public Driver updateDriver(Long driverId, DriverRequest request) {
+        for (Driver driver : driverList) {
+
+            if (driver.getDriveId().equals(driverId)) {
+
+                driver.setName(request.getName());
+                driver.setAge(request.getAge());
+                driver.setMobile(request.getMobile());
+                driver.setEmail(request.getEmail());
+
+                return driver;
+            }
+        }
+
+        return null;
+    }
+    }
+
