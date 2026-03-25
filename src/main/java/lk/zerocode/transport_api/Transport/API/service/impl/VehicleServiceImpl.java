@@ -32,4 +32,9 @@ public class VehicleServiceImpl implements VehicleService {
     public List<Vehicle> findAll() {
         return vehicleRepository.findAllVehicles();
     }
+
+    @Override
+    public Vehicle findById(Long vehicleId) {
+        return vehicleRepository.findVehicleById(vehicleId);
+    }
 }

@@ -10,4 +10,6 @@ public interface VehicleService {
     void createVehicle(VehicleRequest vehicleRequest);
 
     List<Vehicle> findAll();
+
+    Vehicle findById(Long vehicleId);
 }

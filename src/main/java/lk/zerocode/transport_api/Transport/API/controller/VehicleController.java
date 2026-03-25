@@ -5,10 +5,7 @@ import lk.zerocode.transport_api.Transport.API.controller.response.VehicleRespon
 import lk.zerocode.transport_api.Transport.API.model.Vehicle;
 import lk.zerocode.transport_api.Transport.API.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +41,21 @@ public class VehicleController {
         }
 
         return vehicleResponseList;
+
+    }
+
+    @GetMapping("/vehicles/{vehicle-id}")
+    public VehicleResponse getById(@PathVariable("vehicle-id") Long vehicleId){
+
+        Vehicle vehicle = vehicleService.findById(vehicleId);
+
+        VehicleResponse vehicleResponse = new VehicleResponse();
+
+        vehicleResponse.setId(vehicle.getId());
+        vehicleResponse.setVehicleNo(vehicle.getVehicleNo());
+        vehicleResponse.setType(vehicle.getType());
+
+        return vehicleResponse;
 
     }
 
