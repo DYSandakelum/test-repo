@@ -5,10 +5,7 @@ import lk.zerocode.transport_api.Transport.API.controller.response.DriverRespons
 import lk.zerocode.transport_api.Transport.API.model.Driver;
 import lk.zerocode.transport_api.Transport.API.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,5 +40,21 @@ public class DriverController {
         }
 
         return driverResponseList;
+    }
+
+    @GetMapping("driver/{dri-id}")
+    public DriverResponse getById (@PathVariable ("dri-id") Long driverId){
+        Driver driver = driverService.getById(driverId);
+        
+        DriverResponse driverResponse = new DriverResponse();
+
+        driverResponse.setDriveId(driver.getDriveId());
+        driverResponse.setName(driver.getName());
+        driverResponse.setAge(driver.getAge());
+        driverResponse.setMobile(driver.getMobile());
+        driverResponse.setEmail(driver.getEmail());
+
+        return driverResponse;
+
     }
 }
