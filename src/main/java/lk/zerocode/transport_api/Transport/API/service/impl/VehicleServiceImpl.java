@@ -37,4 +37,9 @@ public class VehicleServiceImpl implements VehicleService {
     public Vehicle findById(Long vehicleId) {
         return vehicleRepository.findVehicleById(vehicleId);
     }
+
+    @Override
+    public void updateById(Long vehicleId, VehicleRequest request) {
+        vehicleRepository.updateById(vehicleId, request);
+    }
 }
