@@ -16,13 +16,13 @@ public class DriverController {
     @Autowired
     private DriverService driverService;
 
-    @PostMapping("driver")
+    @PostMapping("drivers")
     public void create (@RequestBody DriverRequest driverRequest){
         driverService.create(driverRequest);
 
     }
 
-    @GetMapping("driver")
+    @GetMapping("drivers")
     public List<DriverResponse> getAll (){
 
         List<Driver> driverList = driverService.getAll();
@@ -42,10 +42,10 @@ public class DriverController {
         return driverResponseList;
     }
 
-    @GetMapping("driver/{dri-id}")
+    @GetMapping("drivers/{dri-id}")
     public DriverResponse getById (@PathVariable ("dri-id") Long driverId){
         Driver driver = driverService.getById(driverId);
-        
+
         DriverResponse driverResponse = new DriverResponse();
 
         driverResponse.setDriveId(driver.getDriveId());
@@ -55,6 +55,11 @@ public class DriverController {
         driverResponse.setEmail(driver.getEmail());
 
         return driverResponse;
+    }
+
+    @PutMapping("drivers/{dri-id}")
+    public void update (@PathVariable("dri-id") Long driverId , @RequestBody DriverRequest driverRequest){
+        driverService.updateById(driverId,driverRequest);
 
     }
 }

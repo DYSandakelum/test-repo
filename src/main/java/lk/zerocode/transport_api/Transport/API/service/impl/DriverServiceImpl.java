@@ -42,4 +42,10 @@ public class DriverServiceImpl implements DriverService {
         Driver driver= driverRepository.findDriverById(driverId);
         return driver;
     }
+
+    @Override
+    public void updateById(Long driverId, DriverRequest driverRequest) {
+        driverRepository.updateDriver(driverId , driverRequest);
+
+    }
 }

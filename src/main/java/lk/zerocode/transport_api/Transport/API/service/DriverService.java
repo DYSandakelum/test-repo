@@ -15,4 +15,6 @@ public interface DriverService {
 
     Driver getById(Long driverId);
 
+    void updateById(Long driverId , DriverRequest driverRequest);
+
 }
